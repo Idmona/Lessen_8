@@ -1,6 +1,9 @@
 import json
+import os
+
 import requests
 from geopy import distance
+from dotenv import load_dotenv
 import folium
 import time
 
@@ -44,12 +47,13 @@ def create_map(coffee_shops, user_coords, file_name):
 
 
 def main():
-    with open("coffee.json", 'r', encoding="utf-8") as file:
+    with open("coffee.json", 'r', encoding="CP1251") as file:
         data = json.load(file)
 
-    apikey = "291234eb-614d-4c8b-8d1a-44b0a441d790"
+    load_dotenv('.env')
+    api_key = os.getenv('apikey')
     address = input("Где вы находитесь?")
-    coords = fetch_coordinates(apikey, address)
+    coords = fetch_coordinates(api_key, address)
 
     coffee_shops_info = []
 
